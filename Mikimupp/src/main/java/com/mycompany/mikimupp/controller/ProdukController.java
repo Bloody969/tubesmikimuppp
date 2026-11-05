@@ -32,4 +32,25 @@ public class ProdukController {
 
         return daftarProduk;
     }
+
+    public boolean tambahProduk(Produk produk) {
+        String sql = "INSERT INTO produk (nama_produk, harga, stok) VALUES (?, ?, ?)";
+
+        try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setString(1, produk.getNamaProduk());
+            stmt.setDouble(2, produk.getHarga());
+            stmt.setInt(3, produk.getStok());
+
+            stmt.executeUpdate();
+
+            System.out.println("Produk berhasil ditambahkan!");
+            return true;
+
+        } catch (SQLException e) {
+            System.out.println("Gagal menambahkan produk: " + e.getMessage());
+            return false;
+
+        }
+    }
 }

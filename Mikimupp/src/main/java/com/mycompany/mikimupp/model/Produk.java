@@ -18,6 +18,10 @@ public class Produk {
         return idProduk;
     }
 
+    public String getNamaProduk() {
+        return namaProduk;
+    }
+
     public double getHarga() {
         return harga;
     }
