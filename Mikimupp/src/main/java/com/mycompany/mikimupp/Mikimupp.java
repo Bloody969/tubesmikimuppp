@@ -1,16 +1,14 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- */
-
 package com.mycompany.mikimupp;
 
-/**
- *
- * @author LENOVO
- */
+import com.mycompany.mikimupp.view.ProdukView;
+import javax.swing.SwingUtilities;
+
 public class Mikimupp {
 
     public static void main(String[] args) {
-        System.out.println("Hello World!");
+        SwingUtilities.invokeLater(() -> {
+            ProdukView view = new ProdukView();
+            view.setVisible(true);
+        });
     }
 }

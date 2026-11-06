@@ -33,6 +33,30 @@ public class ProdukController {
         return daftarProduk;
     }
 
+    public boolean updateProduk(Produk produk) {
+        String sql = "UPDATE produk SET nama_produk = ?, harga = ?, stok = ? WHERE id_produk = ?";
+
+        try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setString(1, produk.getNamaProduk());
+            stmt.setDouble(2, produk.getHarga());
+            stmt.setInt(3, produk.getStok());
+            stmt.setInt(4, produk.getIdProduk());
+
+            int barisDiubah = stmt.executeUpdate();
+
+            if (barisDiubah > 0) {
+                System.out.println("Produk berhasil diperbarui!");
+                return true;
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Gagal memperbarui produk: " + e.getMessage());
+        }
+
+        return false;
+    }
+
     public boolean tambahProduk(Produk produk) {
         String sql = "INSERT INTO produk (nama_produk, harga, stok) VALUES (?, ?, ?)";
 
@@ -52,5 +76,26 @@ public class ProdukController {
             return false;
 
         }
+    }
+
+    public boolean hapusProduk(int idProduk) {
+        String sql = "DELETE FROM produk WHERE id_produk = ?";
+
+        try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, idProduk);
+
+            int barisDihapus = stmt.executeUpdate();
+
+            if (barisDihapus > 0) {
+                System.out.println("Produk berhasil dihapus!");
+                return true;
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Gagal menghapus produk: " + e.getMessage());
+        }
+
+        return false;
     }
 }
